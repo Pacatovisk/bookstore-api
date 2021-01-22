@@ -1,22 +1,37 @@
 package com.marcelo.bookstore.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Livro {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String titulo;
 	private String nome_autor;
 	private String texto;
 
+	@ManyToOne
+	@JoinColumn(name = "categoria_id")
+	private Categoria categoria;
+
 	public Livro() {
 		super();
 	}
 
-	public Livro(Integer id, String titulo, String nome_autor, String texto) {
+	public Livro(Integer id, String titulo, String nome_autor, String texto, Categoria categoria) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
 		this.nome_autor = nome_autor;
 		this.texto = texto;
+		this.categoria = categoria;
 	}
 
 	public Integer getId() {
@@ -49,6 +64,14 @@ public class Livro {
 
 	public void setTexto(String texto) {
 		this.texto = texto;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 	@Override
